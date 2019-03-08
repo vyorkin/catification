@@ -1,0 +1,74 @@
+cabal-version:       2.4
+name:                catification
+version:             0.1.0.0
+synopsis:            This is catification. Catificate yourself now.
+homepage:            https://github.com/vyorkin/catification
+license:             MIT
+license-file:        LICENSE
+author:              Vasiliy Yorkin
+maintainer:          vasiliy.yorkin@gmail.com
+copyright:           2019 (c) Vasiliy Yorkin aka vyorkin
+category:            Game
+build-type:          Simple
+extra-source-files:  CHANGELOG.md, README.md
+description:         Some simple stupid games and experiments.
+
+common minimal
+  build-depends:       base ^>=4.12
+                     , relude ^>= 0.4
+                     , bytestring ^>= 0.10
+                     , containers ^>= 0.6
+                     , random ^>= 1.1
+  mixins:              base hiding (Prelude)
+                     , relude (Relude as Prelude)
+  default-language:    Haskell2010
+  default-extensions:  OverloadedStrings
+
+common lib
+  import:              minimal
+  ghc-options:         -Wall
+                       -Wincomplete-uni-patterns
+                       -Wincomplete-record-updates
+                       -Wcompat
+                       -Widentities
+                       -Wredundant-constraints
+                       -fhide-source-paths
+                       -Wmissing-export-lists
+                       -Wpartial-fields
+
+common exe
+  import:              minimal
+  ghc-options:         -Wall
+                       -threaded
+                       -rtsopts
+                       -with-rtsopts=-N
+                       -Wincomplete-uni-patterns
+                       -Wincomplete-record-updates
+                       -Wcompat
+                       -Widentities
+                       -Wredundant-constraints
+                       -fhide-source-paths
+                       -Wmissing-export-lists
+                       -Wpartial-fields
+
+common game
+  import: exe
+
+common gloss-game
+  import: game
+  build-depends:       gloss ^>= 1.13
+
+common apecs-game
+  import: game
+  build-depends:       apecs ^>= 0.7
+                     , apecs-gloss ^>= 0.2
+
+executable gloss-pong
+  import: gloss-game
+  hs-source-dirs:      gloss/pong/src
+  main-is:             Main.hs
+
+executable apecs-pong
+  import: gloss-game
+  hs-source-dirs:      apecs/pong/src
+  main-is:             Main.hs

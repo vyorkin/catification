@@ -52,23 +52,33 @@ common exe
                        -Wpartial-fields
 
 common game
-  import: exe
+  import:              exe
 
 common gloss-game
-  import: game
+  import:              game
   build-depends:       gloss ^>= 1.13
 
 common apecs-game
-  import: game
-  build-depends:       apecs ^>= 0.7
-                     , apecs-gloss ^>= 0.2
+  import:              gloss-game
+  build-depends:       apecs ^>= 0.7.3
+                     , apecs-gloss ^>= 0.2.0
+
+executable gloss-tictactoe
+  import:              gloss-game
+  hs-source-dirs:      gloss/tictactoe/src
+  main-is:             Main.hs
 
 executable gloss-pong
-  import: gloss-game
+  import:              gloss-game
   hs-source-dirs:      gloss/pong/src
   main-is:             Main.hs
 
 executable apecs-pong
-  import: gloss-game
+  import:              apecs-game
   hs-source-dirs:      apecs/pong/src
+  main-is:             Main.hs
+
+executable apecs-snake
+  import:              apecs-game
+  hs-source-dirs:      apecs/snake/src
   main-is:             Main.hs

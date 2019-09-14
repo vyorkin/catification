@@ -4,8 +4,8 @@ let
 
   inherit (nixpkgs) pkgs;
 
-  f = { mkDerivation, base, bytestring, containers, gloss, random
-      , relude, stdenv
+  f = { mkDerivation, apecs, apecs-gloss, base, bytestring
+      , containers, gloss, random, relude, stdenv
       }:
       mkDerivation {
         pname = "catification";
@@ -14,14 +14,11 @@ let
         isLibrary = false;
         isExecutable = true;
         executableHaskellDepends = [
-          base bytestring containers gloss random relude
+          apecs apecs-gloss base bytestring containers gloss random relude
         ];
         homepage = "https://github.com/vyorkin/catification";
         description = "This is catification. Catificate yourself now.";
         license = stdenv.lib.licenses.mit;
-        shellHook = ''
-          echo "><(((*>"
-        '';
       };
 
   haskellPackages = if compiler == "default"

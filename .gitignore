@@ -4,3 +4,4 @@ dist-newstyle/
 logs/
 result
 .hspec-failures
+.liquid
